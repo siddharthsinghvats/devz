@@ -1,0 +1,71 @@
+.container {
+  flex: 1;
+  overflow: auto;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+
+.pre {
+  margin: 0;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.line {
+  display: flex;
+  min-height: 22px;
+}
+
+.lineNumber {
+  flex-shrink: 0;
+  width: 40px;
+  padding-right: 16px;
+  text-align: right;
+  color: var(--text-muted);
+  user-select: none;
+  border-right: 1px solid var(--border-default);
+  margin-right: 16px;
+}
+
+.lineContent {
+  flex: 1;
+  white-space: pre;
+}
+
+/* Syntax Colors */
+.key {
+  color: #7dd3fc; /* Light blue */
+}
+
+.string {
+  color: #86efac; /* Light green */
+}
+
+.number {
+  color: #fcd34d; /* Yellow */
+}
+
+.boolean {
+  color: #c4b5fd; /* Purple */
+}
+
+.null {
+  color: #f87171; /* Red */
+  font-style: italic;
+}
+
+.bracket {
+  color: #fbbf24; /* Orange */
+  font-weight: 600;
+}
+
+.colon {
+  color: var(--text-tertiary);
+}
+
+.comma {
+  color: var(--text-tertiary);
+}

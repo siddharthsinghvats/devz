@@ -1,0 +1,445 @@
+/* Current Time Display */
+.currentTime {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 8px;
+}
+
+.currentTimeHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #22c55e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+.currentTimeLabel {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.currentTimeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.timeCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.timeCard:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.timeCardLabel {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.timeCardValue {
+  display: block;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.clickHint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* Converter Section */
+.converterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.select {
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+  min-width: 140px;
+}
+
+.select:focus {
+  border-color: var(--accent-primary);
+}
+
+.buttonRow {
+  display: flex;
+  gap: 10px;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: -8px 0;
+}
+
+/* Result Card */
+.resultCard {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resultRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.resultLabel {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+
+.resultValue {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+  text-align: right;
+  word-break: break-all;
+}
+
+.resultValue:hover {
+  background: var(--bg-hover);
+}
+
+.resultValueLarge {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  cursor: pointer;
+}
+
+/* Reference Grid */
+.referenceGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.referenceCard {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.referenceCard:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.referenceLabel {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.referenceValue {
+  display: block;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+/* Timezone Grid */
+.timezoneGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timezoneChip {
+  padding: 8px 14px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.timezoneChip:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.timezoneChip.selected {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+/* Results Grid */
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.timezoneCard {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.timezoneCard:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.timezoneCardLabel {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.timezoneCardValue {
+  display: block;
+  font-size: 15px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+/* Date Calculator */
+.dateInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.breakdownHighlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+}
+
+.breakdownValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.statItem {
+  text-align: center;
+  padding: 12px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.statItem:hover {
+  background: var(--bg-hover);
+}
+
+.statValue {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.statLabel {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Quick Buttons */
+.quickButtonsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.quickButton {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quickButton:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.quickButtonLabel {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.quickButtonValue {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .currentTimeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .referenceGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .quickButtonsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .currentTimeGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .referenceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .quickButtonsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .inputRow {
+    flex-direction: column;
+  }
+  
+  .select {
+    min-width: 100%;
+  }
+}

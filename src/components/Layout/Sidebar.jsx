@@ -113,7 +113,7 @@ function Sidebar() {
       <div className={styles.footer}>
         <span className={styles.version}>v1.0.0</span>
         <a
-          href="https://github.com"
+          href="https://github.com/siddharthsinghvats/devz"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.footerLink}

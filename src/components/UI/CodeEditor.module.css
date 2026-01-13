@@ -59,3 +59,25 @@
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .textarea {
+    padding: 12px;
+    font-size: 12px;
+    min-height: 150px !important;
+  }
+  
+  .stats {
+    font-size: 10px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .textarea {
+    padding: 10px;
+    font-size: 11px;
+    min-height: 120px !important;
+  }
+}

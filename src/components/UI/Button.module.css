@@ -126,3 +126,20 @@
 .text {
   position: relative;
 }
+/* Responsive */
+@media (max-width: 480px) {
+  .button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .small {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  
+  .large {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}

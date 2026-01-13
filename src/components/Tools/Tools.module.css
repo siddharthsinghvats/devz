@@ -30,12 +30,15 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .controlGroup {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .controlLabel {
@@ -47,6 +50,7 @@
 .controlActions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* Toggle Group */
@@ -56,6 +60,7 @@
   border-radius: var(--radius-md);
   padding: 4px;
   gap: 4px;
+  flex-wrap: wrap;
 }
 
 .toggleBtn {
@@ -69,6 +74,7 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .toggleBtn:hover {
@@ -90,6 +96,7 @@
   font-size: 13px;
   color: var(--text-secondary);
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .checkbox input {
@@ -103,11 +110,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .inputLabel {
   font-size: 13px;
   color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 .textInput {
@@ -120,6 +129,7 @@
   color: var(--text-primary);
   outline: none;
   transition: all var(--transition-fast);
+  min-width: 120px;
 }
 
 .textInput:focus {
@@ -133,6 +143,7 @@
   justify-content: center;
   gap: 12px;
   padding: 8px 0;
+  flex-wrap: wrap;
 }
 
 /* Placeholder */
@@ -141,13 +152,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 40px 20px;
   color: var(--text-muted);
   font-size: 14px;
   text-align: center;
   background: var(--bg-primary);
   border: 1px dashed var(--border-default);
   border-radius: var(--radius-md);
+  min-height: 200px;
 }
 
 /* Stats Bar */
@@ -160,6 +172,7 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
+  flex-wrap: wrap;
 }
 
 .stat {
@@ -224,6 +237,7 @@
   color: white;
   border-radius: var(--radius-sm);
   font-weight: 700;
+  flex-shrink: 0;
 }
 
 .errorContent {
@@ -231,6 +245,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 }
 
 .errorTitle {
@@ -243,6 +258,7 @@
   font-size: 13px;
   font-family: var(--font-mono);
   color: var(--text-secondary);
+  word-break: break-word;
 }
 
 .errorLocation {
@@ -294,117 +310,99 @@
   color: var(--text-muted);
 }
 
-/* Tree Viewer */
-.treeContainer {
-  flex: 1;
-  overflow: auto;
-  padding: 8px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.6;
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.treeNode {
-  user-select: none;
-}
-
-.treeRow {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  transition: background var(--transition-fast);
-}
-
-.treeRow.clickable {
-  cursor: pointer;
-}
-
-.treeRow.clickable:hover {
-  background: var(--glass-bg);
-}
-
-.treeArrow {
-  width: 16px;
-  font-size: 10px;
-  color: var(--text-muted);
-  transition: transform var(--transition-fast);
-}
-
-.treeArrow.open {
-  transform: rotate(90deg);
-}
-
-.treeKey {
-  color: var(--accent-primary);
-}
-
-.treeColon {
-  color: var(--text-muted);
-}
-
-.treeBracket {
-  color: var(--text-tertiary);
-}
-
-.treeEllipsis {
-  color: var(--text-muted);
-  margin: 0 4px;
-}
-
-.treeString {
-  color: var(--accent-success);
-}
-
-.treeNumber {
-  color: var(--accent-warning);
-}
-
-.treeBool {
-  color: var(--accent-secondary);
-}
-
-.treeNull {
-  color: var(--accent-danger);
-  font-style: italic;
-}
-
-.treeChildren {
-  overflow: hidden;
-}
-
-.treeClosing {
-  padding: 2px 8px;
-}
-
-.treePlaceholder {
-  color: var(--text-muted);
-  text-align: center;
-  padding: 40px;
-}
-
-.treeError {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 40px;
-  color: var(--accent-danger);
-}
-
-.treeErrorIcon {
-  font-weight: 700;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .gridAuto,
   .grid2 {
     grid-template-columns: 1fr;
   }
-
+  
   .statsGrid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .toolPage {
+    gap: 16px;
+  }
+  
+  .controls {
+    padding: 10px 12px;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .statsBar {
+    gap: 16px;
+    padding: 12px 16px;
+  }
+  
+  .statValue {
+    font-size: 14px;
+  }
+  
+  .statDivider {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolPage {
+    gap: 12px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .controlGroup {
+    justify-content: center;
+  }
+  
+  .controlActions {
+    justify-content: center;
+  }
+  
+  .toggleGroup {
+    justify-content: center;
+  }
+  
+  .toggleBtn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .statCard {
+    padding: 12px 8px;
+  }
+  
+  .statCardValue {
+    font-size: 18px;
+  }
+  
+  .actionBar {
+    flex-direction: column;
+  }
+  
+  .actionBar button {
+    width: 100%;
   }
 }

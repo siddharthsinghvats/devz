@@ -69,3 +69,28 @@
 .comma {
   color: var(--text-tertiary);
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pre {
+    padding: 12px;
+    font-size: 12px;
+  }
+  
+  .lineNumber {
+    width: 30px;
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lineNumber {
+    display: none;
+  }
+  
+  .pre {
+    padding: 10px;
+    font-size: 11px;
+  }
+}

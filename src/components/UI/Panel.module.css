@@ -21,6 +21,8 @@
   padding: 14px 18px;
   background: rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid var(--glass-border);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .title {
@@ -34,6 +36,7 @@
 .actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .content {
@@ -42,4 +45,29 @@
   flex-direction: column;
   padding: 16px;
   min-height: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 14px;
+  }
+  
+  .content {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 12px;
+  }
+  
+  .content {
+    padding: 10px;
+  }
+  
+  .title {
+    font-size: 11px;
+  }
 }

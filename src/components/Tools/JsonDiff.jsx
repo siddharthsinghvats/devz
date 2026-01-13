@@ -83,7 +83,6 @@ function JsonDiff() {
       type: 'unchanged',
     }))
 
-    // Mark changed lines
     differences.forEach(diff => {
       const pathParts = diff.path.split('.')
       const searchKey = `"${pathParts[pathParts.length - 1]}"`
@@ -227,7 +226,7 @@ function JsonDiff() {
                         {line.type === 'removed' ? '−' : line.type === 'changed' ? '~' : ' '}
                       </span>
                       <pre className={diffStyles.lineContent}>
-                        <HighlightedLine content={line.content} type={line.type} side="left" />
+                        <HighlightedLine content={line.content} />
                       </pre>
                     </div>
                   ))}
@@ -249,7 +248,7 @@ function JsonDiff() {
                         {line.type === 'added' ? '+' : line.type === 'changed' ? '~' : ' '}
                       </span>
                       <pre className={diffStyles.lineContent}>
-                        <HighlightedLine content={line.content} type={line.type} side="right" />
+                        <HighlightedLine content={line.content} />
                       </pre>
                     </div>
                   ))}
@@ -326,51 +325,113 @@ function JsonDiff() {
   )
 }
 
-// Highlighted Line Component with JSON syntax coloring
-function HighlightedLine({ content, type, side }) {
+// Highlighted Line Component
+function HighlightedLine({ content }) {
   const highlighted = useMemo(() => {
-    let html = content
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
+    let result = ''
+    let i = 0
+    
+    const escapeHtml = (str) => {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+    }
 
-    // Keys
-    html = html.replace(
-      /"([^"]+)":/g,
-      '<span class="json-key">"$1"</span>:'
-    )
+    while (i < content.length) {
+      const char = content[i]
+      const rest = content.slice(i)
 
-    // Strings
-    html = html.replace(
-      /: "([^"]*)"/g,
-      ': <span class="json-string">"$1"</span>'
-    )
+      if (char === ' ' || char === '\t') {
+        result += char
+        i++
+        continue
+      }
 
-    // Array strings
-    html = html.replace(
-      /(?<=[\[,]\s*)"([^"]*)"/g,
-      '<span class="json-string">"$1"</span>'
-    )
+      if (char === '{' || char === '}' || char === '[' || char === ']') {
+        result += `<span class="json-bracket">${char}</span>`
+        i++
+        continue
+      }
 
-    // Numbers
-    html = html.replace(
-      /: (\d+\.?\d*)/g,
-      ': <span class="json-number">$1</span>'
-    )
+      if (char === ':') {
+        result += `<span class="json-colon">:</span>`
+        i++
+        continue
+      }
 
-    // Booleans
-    html = html.replace(
-      /: (true|false)/g,
-      ': <span class="json-boolean">$1</span>'
-    )
+      if (char === ',') {
+        result += `<span class="json-comma">,</span>`
+        i++
+        continue
+      }
 
-    // Null
-    html = html.replace(
-      /: (null)/g,
-      ': <span class="json-null">$1</span>'
-    )
+      if (char === '"') {
+        let str = '"'
+        i++
+        
+        while (i < content.length) {
+          const c = content[i]
+          
+          if (c === '\\' && i + 1 < content.length) {
+            str += c + content[i + 1]
+            i += 2
+          } else if (c === '"') {
+            str += '"'
+            i++
+            break
+          } else {
+            str += c
+            i++
+          }
+        }
 
-    return html
+        let j = i
+        while (j < content.length && (content[j] === ' ' || content[j] === '\t')) {
+          j++
+        }
+        
+        const isKey = content[j] === ':'
+        const escapedStr = escapeHtml(str)
+        
+        if (isKey) {
+          result += `<span class="json-key">${escapedStr}</span>`
+        } else {
+          result += `<span class="json-string">${escapedStr}</span>`
+        }
+        continue
+      }
+
+      const numberMatch = rest.match(/^-?\d+\.?\d*([eE][+-]?\d+)?/)
+      if (numberMatch) {
+        result += `<span class="json-number">${numberMatch[0]}</span>`
+        i += numberMatch[0].length
+        continue
+      }
+
+      if (rest.startsWith('true')) {
+        result += `<span class="json-boolean">true</span>`
+        i += 4
+        continue
+      }
+
+      if (rest.startsWith('false')) {
+        result += `<span class="json-boolean">false</span>`
+        i += 5
+        continue
+      }
+
+      if (rest.startsWith('null')) {
+        result += `<span class="json-null">null</span>`
+        i += 4
+        continue
+      }
+
+      result += escapeHtml(char)
+      i++
+    }
+
+    return result
   }, [content])
 
   return <span dangerouslySetInnerHTML={{ __html: highlighted }} />

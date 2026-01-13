@@ -192,3 +192,37 @@ body::before {
     padding: 8px;
   }
 }
+
+/* ============================================
+   GLOBAL OVERFLOW & WRAPPING FIXES
+   ============================================ */
+
+/* Prevent horizontal scroll on body */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Ensure all flex containers can shrink */
+* {
+  min-width: 0;
+}
+
+/* Global text wrapping for code/pre elements */
+pre, code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Main content area */
+.main-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Fix for grid children */
+.main-content > * {
+  min-width: 0;
+  max-width: 100%;
+}

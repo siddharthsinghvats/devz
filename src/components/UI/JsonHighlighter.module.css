@@ -4,6 +4,9 @@
   background: var(--bg-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
+  min-height: 200px;
+  max-height: 600px;
+  min-width: 0; /* Important for flex */
 }
 
 .pre {
@@ -17,61 +20,74 @@
 .line {
   display: flex;
   min-height: 22px;
+  align-items: flex-start; /* Align to top for wrapped content */
 }
 
 .lineNumber {
   flex-shrink: 0;
   width: 40px;
-  padding-right: 16px;
+  min-width: 40px;
+  padding-right: 12px;
+  padding-top: 0;
   text-align: right;
   color: var(--text-muted);
   user-select: none;
   border-right: 1px solid var(--border-default);
-  margin-right: 16px;
+  margin-right: 12px;
+  font-size: 12px;
 }
 
 .lineContent {
   flex: 1;
-  white-space: pre;
+  white-space: pre-wrap; /* Enable wrapping */
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0; /* Important for flex child */
 }
 
 /* Syntax Colors */
-.key {
-  color: #7dd3fc; /* Light blue */
+.lineContent :global(.json-key) {
+  color: #7dd3fc;
 }
 
-.string {
-  color: #86efac; /* Light green */
+.lineContent :global(.json-string) {
+  color: #86efac;
+  word-break: break-all; /* Break long strings */
 }
 
-.number {
-  color: #fcd34d; /* Yellow */
+.lineContent :global(.json-number) {
+  color: #fcd34d;
 }
 
-.boolean {
-  color: #c4b5fd; /* Purple */
+.lineContent :global(.json-boolean) {
+  color: #c4b5fd;
 }
 
-.null {
-  color: #f87171; /* Red */
+.lineContent :global(.json-null) {
+  color: #f87171;
   font-style: italic;
 }
 
-.bracket {
-  color: #fbbf24; /* Orange */
+.lineContent :global(.json-bracket) {
+  color: #fbbf24;
   font-weight: 600;
 }
 
-.colon {
+.lineContent :global(.json-colon) {
   color: var(--text-tertiary);
 }
 
-.comma {
+.lineContent :global(.json-comma) {
   color: var(--text-tertiary);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .container {
+    max-height: 400px;
+  }
+  
   .pre {
     padding: 12px;
     font-size: 12px;
@@ -79,12 +95,18 @@
   
   .lineNumber {
     width: 30px;
-    padding-right: 10px;
-    margin-right: 10px;
+    min-width: 30px;
+    padding-right: 8px;
+    margin-right: 8px;
+    font-size: 10px;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    max-height: 300px;
+  }
+  
   .lineNumber {
     display: none;
   }

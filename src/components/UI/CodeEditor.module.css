@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-height: 0; /* Important for flex containers */
+  min-width: 0; /* Important for flex containers */
 }
 
 .container {
@@ -13,6 +15,8 @@
   border: 1px solid var(--border-default);
   transition: all var(--transition-fast);
   overflow: hidden;
+  min-height: 0;
+  min-width: 0;
 }
 
 .container:hover {
@@ -44,11 +48,16 @@
   line-height: 1.7;
   resize: none;
   outline: none;
-  overflow-y: auto;
+  overflow: auto; /* Changed from overflow-y */
+  white-space: pre-wrap; /* Enable wrapping */
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .textarea::placeholder {
   color: var(--text-muted);
+  white-space: pre-wrap;
 }
 
 .stats {
@@ -58,6 +67,7 @@
   font-size: 11px;
   color: var(--text-muted);
   font-family: var(--font-mono);
+  flex-wrap: wrap;
 }
 
 /* Responsive */

@@ -1,14 +1,24 @@
+/* ==========================================
+   TREE CONTAINER
+   ========================================== */
+
 .treeContainer {
   flex: 1;
   overflow: auto;
-  padding: 12px;
+  padding: 16px;
   background: var(--bg-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.6;
+  min-height: 200px;
+  max-height: 600px;
 }
+
+/* ==========================================
+   PLACEHOLDER & ERROR STATES
+   ========================================== */
 
 .placeholder {
   display: flex;
@@ -16,6 +26,7 @@
   justify-content: center;
   height: 200px;
   color: var(--text-muted);
+  font-family: var(--font-sans);
 }
 
 .error {
@@ -25,25 +36,29 @@
   gap: 10px;
   height: 200px;
   color: var(--accent-danger);
+  font-family: var(--font-sans);
 }
 
 .errorIcon {
   font-weight: 700;
+  font-size: 18px;
 }
 
-/* Tree Node */
+/* ==========================================
+   TREE NODE
+   ========================================== */
+
 .node {
   user-select: none;
 }
 
 .row {
   display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 6px;
-  padding-left: calc(var(--depth, 0) * 20px + 6px);
+  align-items: flex-start; /* Align to top */
+  padding: 4px 8px;
   border-radius: var(--radius-sm);
   transition: background var(--transition-fast);
+  min-height: 28px;
 }
 
 .row.clickable {
@@ -51,77 +66,237 @@
 }
 
 .row.clickable:hover {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.05);
 }
+
+/* ==========================================
+   ARROW
+   ========================================== */
 
 .arrow {
   flex-shrink: 0;
-  width: 16px;
+  width: 18px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 10px;
   color: var(--text-muted);
-  display: inline-block;
+  margin-right: 4px;
 }
 
 .arrowPlaceholder {
-  width: 16px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 22px;
+  margin-right: 4px;
+}
+
+/* ==========================================
+   KEY-VALUE DISPLAY
+   ========================================== */
+
+.keyWrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  margin-right: 4px;
 }
 
 .key {
   color: #7dd3fc;
+  word-break: break-word;
+  line-height: 22px;
+}
+
+.index {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 22px;
 }
 
 .colon {
   color: var(--text-muted);
+  margin: 0 4px;
+  flex-shrink: 0;
+  line-height: 22px;
+}
+
+/* ==========================================
+   VALUE DISPLAY
+   ========================================== */
+
+.valueWrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .preview {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .bracket {
   color: #fbbf24;
   font-weight: 600;
+  line-height: 22px;
 }
 
 .ellipsis {
   color: var(--text-muted);
+  line-height: 22px;
 }
 
 .count {
   font-size: 11px;
   color: var(--text-muted);
   background: var(--bg-tertiary);
-  padding: 1px 8px;
+  padding: 2px 8px;
   border-radius: 10px;
-  margin-left: 6px;
+  white-space: nowrap;
+  line-height: 18px;
 }
 
-/* Values */
+/* ==========================================
+   VALUE TYPES
+   ========================================== */
+
 .string {
   color: #86efac;
+  word-break: break-all;
+  line-height: 22px;
 }
 
 .number {
   color: #fcd34d;
+  line-height: 22px;
 }
 
 .boolean {
   color: #c4b5fd;
+  line-height: 22px;
 }
 
 .null {
   color: #f87171;
   font-style: italic;
+  line-height: 22px;
 }
 
-/* Children */
+/* ==========================================
+   CHILDREN (NESTED ITEMS)
+   ========================================== */
+
 .children {
+  margin-left: 20px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border-default);
   overflow: hidden;
 }
 
 .closing {
-  padding: 3px 6px;
-  padding-left: calc(var(--depth, 0) * 20px + 6px);
+  padding: 2px 8px;
+  margin-left: -12px;
+}
+
+.closing .bracket {
+  color: #fbbf24;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .treeContainer {
+    padding: 12px;
+    font-size: 12px;
+    max-height: 500px;
+  }
+  
+  .row {
+    padding: 3px 6px;
+    min-height: 26px;
+  }
+  
+  .arrow,
+  .arrowPlaceholder {
+    width: 16px;
+    height: 20px;
+  }
+  
+  .key,
+  .index,
+  .colon,
+  .string,
+  .number,
+  .boolean,
+  .null,
+  .bracket,
+  .ellipsis {
+    line-height: 20px;
+  }
+  
+  .count {
+    font-size: 10px;
+    padding: 1px 6px;
+  }
+  
+  .children {
+    margin-left: 16px;
+    padding-left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .treeContainer {
+    padding: 10px;
+    font-size: 11px;
+    max-height: 400px;
+  }
+  
+  .row {
+    padding: 2px 4px;
+    min-height: 24px;
+  }
+  
+  .arrow,
+  .arrowPlaceholder {
+    width: 14px;
+    height: 18px;
+    font-size: 8px;
+  }
+  
+  .key,
+  .index,
+  .colon,
+  .string,
+  .number,
+  .boolean,
+  .null,
+  .bracket,
+  .ellipsis {
+    line-height: 18px;
+    font-size: 11px;
+  }
+  
+  .count {
+    font-size: 9px;
+    padding: 1px 5px;
+  }
+  
+  .children {
+    margin-left: 12px;
+    padding-left: 8px;
+  }
+  
+  .closing {
+    margin-left: -8px;
+  }
 }

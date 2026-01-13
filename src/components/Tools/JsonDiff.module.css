@@ -39,7 +39,7 @@
 }
 
 /* ==========================================
-   DIFF CONTAINER - SIDE BY SIDE VIEW
+   DIFF CONTAINER - AUTO HEIGHT
    ========================================== */
 
 .diffContainer {
@@ -50,8 +50,7 @@
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  min-height: 300px;
-  max-height: 600px;
+  /* Auto height - no fixed height or max-height */
 }
 
 .diffPanel {
@@ -59,7 +58,7 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  overflow: hidden;
+  /* No overflow hidden - let it expand */
 }
 
 .diffHeader {
@@ -73,9 +72,10 @@
 }
 
 .diffContent {
+  /* Auto height - expands with content */
   flex: 1;
-  overflow: auto;
-  min-height: 0;
+  overflow-x: auto; /* Only horizontal scroll if needed */
+  overflow-y: visible;
 }
 
 /* ==========================================
@@ -87,8 +87,8 @@
   font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.6;
-  border-bottom: 1px solid var(--border-default);
-  min-height: 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 26px;
 }
 
 .diffLine:last-child {
@@ -112,16 +112,31 @@
 }
 
 .lineNumber {
+  position: sticky;
+  left: 0;
   flex-shrink: 0;
   width: 45px;
   min-width: 45px;
   padding: 4px 8px;
   text-align: right;
   color: var(--text-muted);
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--bg-tertiary);
   border-right: 1px solid var(--border-default);
   user-select: none;
   font-size: 12px;
+  z-index: 1;
+}
+
+.diffLine.removed .lineNumber {
+  background: rgba(248, 113, 113, 0.25);
+}
+
+.diffLine.added .lineNumber {
+  background: rgba(74, 222, 128, 0.25);
+}
+
+.diffLine.changed .lineNumber {
+  background: rgba(251, 191, 36, 0.25);
 }
 
 .lineSymbol {
@@ -150,12 +165,11 @@
   flex: 1;
   padding: 4px 12px;
   margin: 0;
-  white-space: pre-wrap;
+  white-space: pre-wrap; /* Wrap long lines */
   word-wrap: break-word;
-  word-break: break-all;
+  word-break: break-word;
   overflow-wrap: break-word;
   min-width: 0;
-  overflow: hidden;
   font-family: var(--font-mono);
   font-size: 13px;
 }
@@ -226,8 +240,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 400px;
-  overflow-y: auto;
+  /* Auto height - no max-height */
 }
 
 /* Change Item Card */
@@ -352,12 +365,6 @@
 
 .noChangesIcon {
   font-size: 56px;
-  animation: bounce 1s ease-in-out;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
 }
 
 .noChangesText {
@@ -371,10 +378,6 @@
    ========================================== */
 
 @media (max-width: 1024px) {
-  .diffContainer {
-    max-height: 500px;
-  }
-  
   .changeValues {
     gap: 10px;
   }
@@ -389,15 +392,14 @@
 @media (max-width: 900px) {
   .diffContainer {
     grid-template-columns: 1fr;
-    max-height: none;
   }
   
   .diffPanel {
-    max-height: 350px;
+    border-bottom: 1px solid var(--border-default);
   }
   
-  .diffContent {
-    max-height: 300px;
+  .diffPanel:last-child {
+    border-bottom: none;
   }
   
   .changeValues {
@@ -433,6 +435,10 @@
   
   .statItem {
     font-size: 12px;
+  }
+  
+  .diffContainer {
+    border-radius: var(--radius-md);
   }
   
   .diffLine {
@@ -501,11 +507,13 @@
     width: 28px;
     min-width: 28px;
     font-size: 9px;
+    padding: 4px 2px;
   }
   
   .lineSymbol {
     width: 16px;
     min-width: 16px;
+    font-size: 10px;
   }
   
   .lineContent {

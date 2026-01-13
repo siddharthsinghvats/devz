@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import Sidebar from './components/Layout/Sidebar'
 import Header from './components/Layout/Header'
 import {
@@ -18,12 +19,21 @@ import {
   TimezoneConverter,
   DateCalculator,
 } from './components/Tools/TimeUtils'
+import './App.css'
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+
   return (
     <div className="app">
-      <Sidebar />
-      <div className="main-wrapper">
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      <div 
+        className="main-wrapper"
+        style={{ 
+          marginLeft: sidebarOpen ? '260px' : '56px',
+          transition: 'margin-left 0.3s ease'
+        }}
+      >
         <Header />
         <main className="main-content">
           <AnimatePresence mode="wait">

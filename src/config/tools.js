@@ -66,7 +66,14 @@ export const toolCategories = [
         description: 'Visualize as tree',
         icon: '🌳',
         color: '#22c55e',
-      },
+      }, 
+      {
+        path: '/json-epoch-converter',
+        name: 'Epoch Converter',
+        description: 'Convert epoch timestamps to human dates',
+        icon: '🕐',
+        color: '#8b5cf6',
+      }
     ],
   },
   {

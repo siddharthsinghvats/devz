@@ -66,13 +66,20 @@ export const toolCategories = [
         description: 'Visualize as tree',
         icon: '🌳',
         color: '#22c55e',
-      }, 
+      },
       {
         path: '/json-epoch-converter',
         name: 'Epoch Converter',
         description: 'Convert epoch timestamps to human dates',
         icon: '🕐',
         color: '#8b5cf6',
+      },
+      {
+        path: '/class-to-json',
+        name: 'Class to JSON',
+        description: 'Convert class entries to JSON',
+        icon: '📋',
+        color: '#f43f5e',
       }
     ],
   },

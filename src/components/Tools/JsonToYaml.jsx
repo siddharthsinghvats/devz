@@ -1,14 +1,43 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import yaml from 'js-yaml'
 import { Panel, Button, CodeEditor } from '../UI'
 import styles from './Tools.module.css'
 
+const STORAGE_KEY = 'devtools_json_to_yaml'
+
 function JsonToYaml() {
-  const [input, setInput] = useState('')
-  const [output, setOutput] = useState('')
+  const [input, setInput] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const { input: savedInput } = JSON.parse(saved)
+        return savedInput || ''
+      }
+    } catch (e) {}
+    return ''
+  })
+  
+  const [output, setOutput] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const { output: savedOutput } = JSON.parse(saved)
+        return savedOutput || ''
+      }
+    } catch (e) {}
+    return ''
+  })
+  
   const [mode, setMode] = useState('json-to-yaml')
+
+  // Save to localStorage when input/output changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ input, output }))
+    } catch (e) {}
+  }, [input, output])
 
   const convert = () => {
     if (!input.trim()) {
@@ -107,7 +136,7 @@ logging:
       </div>
 
       <div className={styles.gridAuto}>
-        <Panel title={mode === 'json-to-yaml' ? 'Input JSON' : 'Input YAML'}>
+        <Panel title={mode === 'json-to-yaml' ? 'Input JSON' : 'Input YAML'} expandable={true} defaultExpanded={true}>
           <CodeEditor
             value={input}
             onChange={setInput}
@@ -117,6 +146,8 @@ logging:
 
         <Panel
           title={mode === 'json-to-yaml' ? 'Output YAML' : 'Output JSON'}
+          expandable={true}
+          defaultExpanded={true}
           actions={
             <Button size="small" variant="ghost" onClick={copyOutput} disabled={!output}>
               📋 Copy

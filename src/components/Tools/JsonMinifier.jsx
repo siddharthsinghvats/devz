@@ -1,13 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Panel, Button, CodeEditor } from '../UI'
 import styles from './Tools.module.css'
 
+const STORAGE_KEY = 'devtools_json_minifier'
+
 function JsonMinifier() {
-  const [input, setInput] = useState('')
-  const [output, setOutput] = useState('')
+  const [input, setInput] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const { input: savedInput } = JSON.parse(saved)
+        return savedInput || ''
+      }
+    } catch (e) {}
+    return ''
+  })
+  
+  const [output, setOutput] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const { output: savedOutput } = JSON.parse(saved)
+        return savedOutput || ''
+      }
+    } catch (e) {}
+    return ''
+  })
+  
   const [stats, setStats] = useState(null)
+
+  // Save to localStorage when input/output changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ input, output }))
+    } catch (e) {}
+  }, [input, output])
 
   const minifyJson = () => {
     if (!input.trim()) {
@@ -60,7 +89,7 @@ function JsonMinifier() {
       </div>
 
       <div className={styles.gridAuto}>
-        <Panel title="Input JSON">
+        <Panel title="Input JSON" expandable={true} defaultExpanded={true}>
           <CodeEditor
             value={input}
             onChange={setInput}
@@ -70,6 +99,8 @@ function JsonMinifier() {
 
         <Panel
           title="Minified Output"
+          expandable={true}
+          defaultExpanded={true}
           actions={
             <Button size="small" variant="ghost" onClick={copyOutput} disabled={!output}>
               📋 Copy

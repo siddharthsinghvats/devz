@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Panel, Button, Badge, CodeEditor, JsonHighlighter } from '../UI'
 import styles from './Tools.module.css'
+
+const STORAGE_KEY = 'devtools_json_formatter'
 
 const SAMPLE_JSON = {
   name: "John Doe",
@@ -25,10 +27,37 @@ const SAMPLE_JSON = {
 }
 
 function JsonFormatter() {
-  const [input, setInput] = useState('')
-  const [output, setOutput] = useState('')
+  const [input, setInput] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const { input: savedInput } = JSON.parse(saved)
+        return savedInput || ''
+      }
+    } catch (e) {}
+    return ''
+  })
+  
+  const [output, setOutput] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const { output: savedOutput } = JSON.parse(saved)
+        return savedOutput || ''
+      }
+    } catch (e) {}
+    return ''
+  })
+  
   const [indent, setIndent] = useState(2)
   const [isValid, setIsValid] = useState(null)
+
+  // Save to localStorage when input/output changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ input, output }))
+    } catch (e) {}
+  }, [input, output])
 
   const formatJson = () => {
     if (!input.trim()) {
@@ -110,6 +139,8 @@ function JsonFormatter() {
       <div className={styles.gridAuto}>
         <Panel
           title="Input"
+          expandable={true}
+          defaultExpanded={true}
           actions={
             isValid !== null && (
               <Badge variant={isValid ? 'success' : 'error'}>
@@ -134,6 +165,8 @@ function JsonFormatter() {
 
         <Panel
           title="Formatted Output"
+          expandable={true}
+          defaultExpanded={true}
           actions={
             <Button size="small" variant="ghost" onClick={copyOutput} disabled={!output}>
               📋 Copy

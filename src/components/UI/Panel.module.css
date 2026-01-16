@@ -28,6 +28,41 @@
   flex-shrink: 0; /* Don't shrink header */
 }
 
+.expandableHeader {
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition-fast);
+}
+
+.expandableHeader:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.expandIcon {
+  font-size: 10px;
+  color: var(--text-muted);
+  width: 14px;
+  transition: color var(--transition-fast);
+}
+
+.expandableHeader:hover .expandIcon {
+  color: var(--accent-primary);
+}
+
+.collapsed {
+  /* When collapsed, disable content overflow */
+}
+
+.collapsed .content {
+  display: none;
+}
+
 .title {
   font-size: 12px;
   font-weight: 600;

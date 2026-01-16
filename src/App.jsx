@@ -13,7 +13,8 @@ import {
   JsonToTs,
   JsonEscape,
   JsonTreeViewer,
-  JsonEpochConverter
+  JsonEpochConverter,
+  ClassToJson
 } from './components/Tools'
 import {
   TimestampConverter,
@@ -52,6 +53,7 @@ function App() {
               <Route path="/json-escape" element={<JsonEscape />} />
               <Route path="/json-tree" element={<JsonTreeViewer />} />
               <Route path="/json-epoch-converter" element={<JsonEpochConverter />} />
+              <Route path="/class-to-json" element={<ClassToJson />} />
 
               
               {/* Time Utils */}
